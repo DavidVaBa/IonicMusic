@@ -14,6 +14,11 @@ export class PlaySongPage {
   song: Song;
   icon: String = "play";
   media: any;
+  durationN: number = 0;
+  timer: any;
+  duration: any = "00";
+  
+  
 
   constructor(
     public navCtrl: NavController,
@@ -27,7 +32,7 @@ export class PlaySongPage {
           this.playSong();
         }
       })
-    })   
+    }) 
   }
 
   ionViewWillLoad() {
@@ -48,6 +53,21 @@ export class PlaySongPage {
   playSong(){
     if(!this.media){
       this.loadSong(this.song.preview_url);
+      this.timer = setInterval(() => {
+        if(this.icon == "pause"){
+          if(this.durationN >= 30){
+            this.durationN = 0;
+            this.playSong();
+          }else{
+            this.durationN++;
+          }
+        }
+
+        if(this.durationN < 10)
+          this.duration = "0" + this.durationN;
+        else
+          this.duration = this.durationN;
+      }, 1000)
     } 
     
     if(this.icon == "play")

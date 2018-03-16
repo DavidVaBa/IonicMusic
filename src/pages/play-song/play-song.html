@@ -24,7 +24,12 @@
       <button ion-button round class="col" (click)="playSong();">
         <ion-icon padding name="md-{{icon}}"></ion-icon>
       </button>
-      <p>{{duration}}</p>
+      <ion-item>
+        <ion-range min="0" max="30" color="secondary" [(ngModel)]="duration" disabled>
+          <ion-label range-left>0:{{duration}}</ion-label>
+          <ion-label range-right>0:30</ion-label>
+        </ion-range>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>
