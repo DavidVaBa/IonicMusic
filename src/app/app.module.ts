@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { SongsService } from '../providers/songs/songs';
 import { LoadingProvider } from '../providers/loading/loading';
 import { HttpClientModule } from '@angular/common/http';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SongsService,
-    LoadingProvider
+    LoadingProvider,
+    InAppBrowser
   ]
 })
 export class AppModule {}

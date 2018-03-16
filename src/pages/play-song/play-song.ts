@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Song } from '../../models/song/song.interface';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 declare let Media: any;
 
@@ -23,7 +24,8 @@ export class PlaySongPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private platform: Platform
+    private platform: Platform,
+    private iab: InAppBrowser
   )
   {
     platform.ready().then(() => {
@@ -33,6 +35,11 @@ export class PlaySongPage {
         }
       })
     }) 
+  }
+
+  openUrl(){
+    const browser = this.iab.create(this.song.open_url);
+    browser.show()  
   }
 
   ionViewWillLoad() {
