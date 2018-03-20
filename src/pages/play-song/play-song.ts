@@ -16,6 +16,7 @@ export class PlaySongPage {
   icon: String = "play";
   media: any;
   durationN: number = 0;
+  durationM: number;
   timer: any;
   duration: any = "00";
   
@@ -60,21 +61,7 @@ export class PlaySongPage {
   playSong(){
     if(!this.media){
       this.loadSong(this.song.preview_url);
-      this.timer = setInterval(() => {
-        if(this.icon == "pause"){
-          if(this.durationN >= 30){
-            this.durationN = 0;
-            this.playSong();
-          }else{
-            this.durationN++;
-          }
-        }
-
-        if(this.durationN < 10)
-          this.duration = "0" + this.durationN;
-        else
-          this.duration = this.durationN;
-      }, 1000)
+      this.setTimer();
     } 
     
     if(this.icon == "play")
@@ -87,5 +74,33 @@ export class PlaySongPage {
 
   loadSong(url: String){
     this.media = new Media(url);
+    this.durationM = this.media.getDuration();
+  }
+
+  setMusicTime(){
+    if(this.duration != this.durationN){
+      this.media.seekTo(this.duration * 1000);
+      this.durationN = this.duration;
+      clearInterval(this.timer);
+      this.setTimer();
+    }
+  }
+
+  setTimer(){
+    this.timer = setInterval(() => {
+      if(this.icon == "pause"){
+        if(this.durationN >= 30){
+          this.durationN = 0;
+          this.playSong();
+        }else{
+          this.durationN++;
+        }
+      }
+
+      if(this.durationN < 10)
+        this.duration = "0" + this.durationN;
+      else
+        this.duration = this.durationN;
+    }, 1000)
   }
 }
