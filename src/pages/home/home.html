@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Ionic Music
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -17,6 +17,12 @@
       <button ion-button round navPush="PlaySongPage" [navParams]="{'song': song}">
         <ion-icon name="md-play"></ion-icon>
       </button>
+      <ion-fab bottom right>
+        <button ion-fab color="danger" mini (click)="deleteSong(song._id);"><ion-icon name="md-trash"></ion-icon></button>
+      </ion-fab>
     </ion-item>
   </ion-list>
+  <ion-fab bottom right>
+    <button ion-fab navPush="AddSongPage"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

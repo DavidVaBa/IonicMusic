@@ -1,0 +1,28 @@
+<!--
+  Generated template for the AddSongPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Song</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form>
+      <ion-item>
+        <ion-label>Title</ion-label>
+        <ion-input [(ngModel)]="title" type="text" name="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Artist</ion-label>
+        <ion-input [(ngModel)]="artist" type="text" name="artist"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block navPush="SelectSongPage" [navParams]="{'artist': artist, 'title': title}">Add Song</button>
+    </form>
+</ion-content>

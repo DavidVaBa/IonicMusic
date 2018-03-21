@@ -22,4 +22,10 @@ export class HomePage {
     this.LoadingProvider.endLoad();
   }
 
+  deleteSong(id: String){
+    this.SongsService.deleteSong(id);
+    setTimeout(() => {
+      this.navCtrl.setRoot(this.navCtrl.getActive().component)
+    }, 200);
+  }
 }

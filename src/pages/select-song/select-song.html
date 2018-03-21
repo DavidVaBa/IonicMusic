@@ -1,0 +1,36 @@
+<!--
+  Generated template for the SelectSongPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Song</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item *ngFor="let item of songs?.tracks.items">
+    <ion-thumbnail item-start>
+      <img [src]="item.album.images[1].url">
+    </ion-thumbnail>
+    <h2>{{item.name}}</h2>
+    <p>{{item.artists[0].name}}</p>
+    <button ion-button round *ngIf="item.preview_url != null" (click)="addSong(item.name,
+      item.artists[0].name,
+      item.preview_url,
+      item.album.images[2].url,
+      item.album.images[1].url,
+      item.album.images[0].url,
+      item.external_urls.spotify);">
+      <ion-icon> Add Song</ion-icon>
+    </button>
+    <button ion-button round color="danger" *ngIf="item.preview_url == null" >
+      Song not availabe
+    </button>
+  </ion-item>
+</ion-content>

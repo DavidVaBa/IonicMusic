@@ -16,9 +16,9 @@ export class PlaySongPage {
   icon: String = "play";
   media: any;
   durationN: number = 0;
-  durationM: number;
   timer: any;
   duration: any = "00";
+  isEnabled: boolean = true;
   
   
 
@@ -63,6 +63,8 @@ export class PlaySongPage {
       this.loadSong(this.song.preview_url);
       this.setTimer();
     } 
+
+    this.isEnabled = !this.isEnabled;
     
     if(this.icon == "play")
       this.media.play();
@@ -74,7 +76,6 @@ export class PlaySongPage {
 
   loadSong(url: String){
     this.media = new Media(url);
-    this.durationM = this.media.getDuration();
   }
 
   setMusicTime(){
