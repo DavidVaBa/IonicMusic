@@ -10,6 +10,8 @@ import { SongsService } from '../providers/songs/songs';
 import { LoadingProvider } from '../providers/loading/loading';
 import { HttpClientModule } from '@angular/common/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { MusicControls } from '@ionic-native/music-controls';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SongsService,
     LoadingProvider,
-    InAppBrowser
+    InAppBrowser,
+    SocialSharing,
+    MusicControls
   ]
 })
 export class AppModule {}

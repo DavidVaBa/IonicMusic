@@ -21,13 +21,25 @@ export class SelectSongPage {
   title: String;
   tracks;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private SongsService: SongsService) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private SongsService: SongsService) {
     this.title = this.navParams.get('title');
     this.artist = this.navParams.get('artist');
 
-    this.SongsService.getSongsSpotify(this.title, this.artist).subscribe((data: any) => {
-      this.songs = data;
-    });
+    if(this.title == undefined || this.title == ""){
+      this.SongsService.getSongsSpotifyArt(this.artist).subscribe((data: any) => {
+        this.songs = data;
+      });
+    } else if (this.artist == undefined || this.artist == ""){
+      this.SongsService.getSongsSpotifyTit(this.title).subscribe((data: any) => {
+        this.songs = data;
+      });
+    } else{
+      this.SongsService.getSongsSpotifyTitArt(this.title, this.artist).subscribe((data: any) => {
+        this.songs = data;
+      });
+    }
 
     this.tracks = JSON.stringify(this.songs);
     console.log(this.songs);

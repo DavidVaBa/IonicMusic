@@ -15,9 +15,7 @@ export class HomePage {
   constructor(public navCtrl: NavController, private SongsService: SongsService, private LoadingProvider: LoadingProvider) {
     this.LoadingProvider.startLoad();
 
-    this.SongsService.getSongs().subscribe((data: Song[]) => {
-      this.songs = data;
-    })
+    this.getSongs();
 
     this.LoadingProvider.endLoad();
   }
@@ -27,5 +25,26 @@ export class HomePage {
     setTimeout(() => {
       this.navCtrl.setRoot(this.navCtrl.getActive().component)
     }, 200);
+  }
+
+  getSongs(){
+    this.SongsService.getSongs().subscribe((data: Song[]) => {
+      this.songs = data;
+    })
+  }
+
+  getItems(ev: any) {
+
+    this.getSongs();
+
+    let val = ev.target.value;
+
+    setTimeout(() => {
+      if (val && val.trim() != '') {
+        this.songs = this.songs.filter((song) => {
+          return (song.title.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        })
+      }
+    }, 90);
   }
 }

@@ -8,11 +8,12 @@
 
 <ion-content padding>
   <ion-list>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-item *ngFor="let song of songs">
       <ion-thumbnail item-start>
       <img [src]="song.image_medium">
       </ion-thumbnail>
-      <h2>{{song.title}}</h2>
+      <h2 text-wrap>{{song.title}}</h2>
       <p>{{song.artist}}</p>
       <button ion-button round navPush="PlaySongPage" [navParams]="{'song': song}">
         <ion-icon name="md-play"></ion-icon>

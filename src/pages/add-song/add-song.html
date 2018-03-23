@@ -21,8 +21,8 @@
       </ion-item>
       <ion-item>
         <ion-label>Artist</ion-label>
-        <ion-input [(ngModel)]="artist" type="text" name="artist"></ion-input>
+        <ion-input [(ngModel)]="artist" type="text" name="artist" required></ion-input>
       </ion-item>
-      <button ion-button type="submit" block navPush="SelectSongPage" [navParams]="{'artist': artist, 'title': title}">Add Song</button>
+      <button ion-button type="submit" block navPush="SelectSongPage" [navParams]="{'artist': artist, 'title': title}">Search Song</button>
     </form>
 </ion-content>

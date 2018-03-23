@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, FabContainer } from 'ionic-angular';
 import { Song } from '../../models/song/song.interface';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { MusicControls } from '@ionic-native/music-controls';
 
 declare let Media: any;
 
@@ -26,7 +28,9 @@ export class PlaySongPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private platform: Platform,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private socialSharing: SocialSharing,
+    private musicControls: MusicControls
   )
   {
     platform.ready().then(() => {
@@ -39,8 +43,8 @@ export class PlaySongPage {
   }
 
   openUrl(){
-    const browser = this.iab.create(this.song.open_url);
-    browser.show()  
+    let url = this.song.open_url.substring(31);
+    window.open('spotify:track:' + url, '_system');
   }
 
   ionViewWillLoad() {
@@ -76,6 +80,26 @@ export class PlaySongPage {
 
   loadSong(url: String){
     this.media = new Media(url);
+    this.musicControls.create({
+      track: this.song.title,
+      artist: this.song.artist,
+      cover: this.song.image_small,
+      hasNext: false,
+      hasPrev: false,
+    });
+
+    this.musicControls.subscribe().subscribe(action => {
+      function events(action) {
+        const message = JSON.parse(action).message;
+        switch(message){
+          case 'music-controls-pause':
+            this.playSong();
+            break;
+        }
+      }
+    })
+
+    this.musicControls.listen();
   }
 
   setMusicTime(){
@@ -103,5 +127,18 @@ export class PlaySongPage {
       else
         this.duration = this.durationN;
     }, 1000)
+  }
+
+  shareSongFb(image: string, url: string){
+    url = url.substring(31);
+    window.open('spotify:track:' + url, '_system');
+  }
+
+  shareSongTw(image: string, url: string){
+    this.socialSharing.shareViaTwitter("I like this song!", image, url);
+  }
+
+  shareSongIg(image: string){
+    this.socialSharing.shareViaInstagram("I like this!", image)
   }
 }
